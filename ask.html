@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ask a Question — FarmHelp</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/ask.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🌾</div>
+        FarmHelp
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="knowledge.html">Knowledge Base</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="ask.html" class="btn-ask active">Ask a Question</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="knowledge.html">Knowledge Base</a>
+      <a href="about.html">About</a>
+      <a href="ask.html" class="btn-ask">Ask a Question</a>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HEADER ── -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Ask a Farming Question</h1>
+      <p>Type your question below. We'll search our expert knowledge base first — if we can't find a match, our AI assistant will answer you directly.</p>
+    </div>
+  </section>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="ask-main">
+    <div class="container ask-layout">
+
+      <!-- LEFT: FORM + ANSWER -->
+      <div class="ask-left">
+
+        <!-- Question Form -->
+        <div class="ask-form-card card">
+          <div class="form-top">
+            <h3>Your Question</h3>
+            <span class="form-hint">Be specific for better results</span>
+          </div>
+
+          <!-- Category Selector -->
+          <div class="category-chips">
+            <span class="chip-label">Filter by topic:</span>
+            <button class="chip active" data-cat="all">All</button>
+            <button class="chip" data-cat="crop-diseases">Crop Diseases</button>
+            <button class="chip" data-cat="pests">Pests</button>
+            <button class="chip" data-cat="soil-fertilizers">Soil & Fertilizers</button>
+            <button class="chip" data-cat="irrigation">Irrigation</button>
+            <button class="chip" data-cat="weather-seasons">Weather</button>
+            <button class="chip" data-cat="seeds-planting">Seeds</button>
+            <button class="chip" data-cat="livestock">Livestock</button>
+            <button class="chip" data-cat="organic-farming">Organic</button>
+            <button class="chip" data-cat="general">General</button>
+          </div>
+
+          <!-- Input -->
+          <div class="input-wrapper">
+            <textarea
+              id="questionInput"
+              placeholder="e.g. Why are my tomato leaves turning yellow and curling? What should I do?"
+              rows="4"
+              maxlength="500"
+            ></textarea>
+            <div class="input-footer">
+              <span id="charCount" class="char-count">0 / 500</span>
+              <div class="input-actions">
+                <button class="btn-clear" id="clearBtn" title="Clear">✕ Clear</button>
+                <button class="btn btn-amber" id="submitBtn" onclick="handleSubmit()">
+                  🔍 Get Answer
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Example questions -->
+          <div class="example-questions">
+            <span class="eq-label">Try asking:</span>
+            <button class="eq-btn" onclick="fillExample(this)">Why are my wheat leaves yellow?</button>
+            <button class="eq-btn" onclick="fillExample(this)">How to remove aphids from plants?</button>
+            <button class="eq-btn" onclick="fillExample(this)">Best fertilizer for sandy soil?</button>
+            <button class="eq-btn" onclick="fillExample(this)">When should I sow cotton?</button>
+          </div>
+        </div>
+
+        <!-- Answer Box -->
+        <div class="answer-box" id="answerBox">
+
+          <!-- idle state -->
+          <div class="answer-idle" id="answerIdle">
+            <div class="idle-icon">💬</div>
+            <p>Your answer will appear here after you submit a question.</p>
+          </div>
+
+          <!-- loading state -->
+          <div class="answer-loading hidden" id="answerLoading">
+            <div class="loading-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <p id="loadingText">Searching knowledge base...</p>
+          </div>
+
+          <!-- result state -->
+          <div class="answer-result hidden" id="answerResult">
+            <div class="result-header">
+              <div class="result-source" id="resultSource"></div>
+              <div class="result-meta" id="resultMeta"></div>
+            </div>
+            <h4 id="resultQuestion" class="result-question"></h4>
+            <div class="result-answer" id="resultAnswer"></div>
+            <div class="result-actions">
+              <span class="helpful-label">Was this helpful?</span>
+              <button class="helpful-btn" id="btnYes" onclick="markHelpful(true)">👍 Yes</button>
+              <button class="helpful-btn" id="btnNo"  onclick="markHelpful(false)">👎 No</button>
+              <button class="btn-ask-again" onclick="askAnother()">Ask another question →</button>
+            </div>
+          </div>
+
+          <!-- not found state -->
+          <div class="answer-notfound hidden" id="answerNotFound">
+            <div class="nf-icon">🤖</div>
+            <h4>Searching AI for your answer...</h4>
+            <p id="nfText">Our knowledge base didn't have an exact match. Asking our AI assistant now.</p>
+            <div class="ai-answer-box" id="aiAnswerBox">
+              <div class="loading-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="result-actions hidden" id="aiResultActions">
+              <span class="helpful-label">Was this helpful?</span>
+              <button class="helpful-btn" onclick="markHelpful(true)">👍 Yes</button>
+              <button class="helpful-btn" onclick="markHelpful(false)">👎 No</button>
+              <button class="btn-ask-again" onclick="askAnother()">Ask another question →</button>
+            </div>
+          </div>
+
+        </div>
+        <!-- end answer box -->
+
+      </div>
+      <!-- end ask-left -->
+
+      <!-- RIGHT: SIDEBAR -->
+      <aside class="ask-sidebar">
+
+        <div class="sidebar-card card">
+          <h4>💡 Tips for Better Answers</h4>
+          <ul class="tips-list">
+            <li>Mention the specific crop name</li>
+            <li>Describe the symptoms clearly</li>
+            <li>Include your region or season</li>
+            <li>Ask one question at a time</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card card">
+          <h4>🔥 Popular Questions</h4>
+          <div class="popular-list">
+            <button class="popular-item" onclick="fillAndSubmit('How do I get rid of aphids?')">
+              How do I get rid of aphids?
+            </button>
+            <button class="popular-item" onclick="fillAndSubmit('Why are my wheat leaves turning yellow?')">
+              Why are wheat leaves turning yellow?
+            </button>
+            <button class="popular-item" onclick="fillAndSubmit('How much urea for rice per acre?')">
+              How much urea for rice per acre?
+            </button>
+            <button class="popular-item" onclick="fillAndSubmit('When should I sow wheat?')">
+              When should I sow wheat?
+            </button>
+            <button class="popular-item" onclick="fillAndSubmit('What is drip irrigation?')">
+              What is drip irrigation?
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-card card sidebar-browse">
+          <h4>📚 Browse Topics</h4>
+          <div class="browse-links">
+            <a href="knowledge.html?cat=crop-diseases">🍂 Crop Diseases</a>
+            <a href="knowledge.html?cat=pests">🐛 Pests & Insects</a>
+            <a href="knowledge.html?cat=soil-fertilizers">🌱 Soil & Fertilizers</a>
+            <a href="knowledge.html?cat=irrigation">💧 Irrigation</a>
+            <a href="knowledge.html?cat=organic-farming">♻️ Organic Farming</a>
+            <a href="knowledge.html?cat=livestock">🐄 Livestock</a>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-text">🌾 FarmHelp</div>
+        <p>A free farming support system helping farmers solve crop, soil, pest, and livestock problems.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="ask.html">Ask a Question</a>
+        <a href="knowledge.html">Knowledge Base</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <a href="knowledge.html?cat=crop-diseases">Crop Diseases</a>
+        <a href="knowledge.html?cat=pests">Pests & Insects</a>
+        <a href="knowledge.html?cat=soil-fertilizers">Soil & Fertilizers</a>
+        <a href="knowledge.html?cat=irrigation">Irrigation</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 FarmHelp. Built as a college project to support farmers.
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/ask.js"></script>
+
+</body>
+</html>

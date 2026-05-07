@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FarmHelp — Farmer Query Support System</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🌾</div>
+        FarmHelp
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="knowledge.html">Knowledge Base</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="ask.html" class="btn-ask">Ask a Question</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html" class="active">Home</a>
+      <a href="knowledge.html">Knowledge Base</a>
+      <a href="about.html">About</a>
+      <a href="ask.html" class="btn-ask">Ask a Question</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <span class="hero-badge">🌱 Free Farming Support</span>
+        <h1>Got a farming problem?<br><span class="highlight">We've got answers.</span></h1>
+        <p>Ask any question about crops, soil, pests, irrigation, or livestock. Get instant answers from our knowledge base — powered by expert knowledge and AI.</p>
+        <div class="hero-actions">
+          <a href="ask.html" class="btn btn-amber">Ask a Question</a>
+          <a href="knowledge.html" class="btn btn-secondary">Browse Knowledge Base</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">50+</span>
+            <span class="stat-label">Expert Answers</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">11</span>
+            <span class="stat-label">Topic Categories</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-num">Free</span>
+            <span class="stat-label">Always</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-main">
+          <div class="hc-header">
+            <span class="hc-dot green"></span>
+            <span class="hc-dot amber"></span>
+            <span class="hc-dot red"></span>
+            <span class="hc-title">FarmHelp Assistant</span>
+          </div>
+          <div class="hc-body">
+            <div class="hc-msg user">Why are my wheat leaves turning yellow?</div>
+            <div class="hc-msg bot">
+              <span class="bot-icon">🌾</span>
+              Yellow wheat leaves usually indicate <strong>nitrogen deficiency</strong>, waterlogging, or rust disease. Check if yellowing starts from older leaves and apply urea fertilizer for correction.
+            </div>
+            <div class="hc-tags">
+              <span class="tag">Crop Disease</span>
+              <span class="tag">Wheat</span>
+              <span class="tag">Nitrogen</span>
+            </div>
+          </div>
+          <div class="hc-input-row">
+            <div class="hc-fake-input">Type your farming question...</div>
+            <button class="hc-send">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── QUICK SEARCH ── -->
+  <section class="quick-search-section">
+    <div class="container">
+      <div class="quick-search-box">
+        <span class="qs-icon">🔍</span>
+        <input
+          type="text"
+          id="heroSearch"
+          placeholder="Quick search — e.g. aphids, wheat, soil pH, drip irrigation..."
+          autocomplete="off"
+        />
+        <button onclick="doHeroSearch()" class="btn btn-primary">Search</button>
+      </div>
+      <div id="heroResults" class="hero-results hidden"></div>
+    </div>
+  </section>
+
+  <!-- ── CATEGORIES ── -->
+  <section class="categories-section">
+    <div class="container">
+      <h2 class="section-title">Browse by Topic</h2>
+      <p class="section-subtitle">Pick a category to explore answers specific to your farming needs.</p>
+      <div class="categories-grid">
+
+        <a href="knowledge.html?cat=crop-diseases" class="cat-card">
+          <div class="cat-icon">🍂</div>
+          <h4>Crop Diseases</h4>
+          <p>Identify and treat common diseases affecting your crops.</p>
+          <span class="cat-count">8 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=pests" class="cat-card">
+          <div class="cat-icon">🐛</div>
+          <h4>Pests & Insects</h4>
+          <p>Control locusts, aphids, stem borers, and more.</p>
+          <span class="cat-count">7 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=soil-fertilizers" class="cat-card">
+          <div class="cat-icon">🌱</div>
+          <h4>Soil & Fertilizers</h4>
+          <p>Improve soil health and apply the right fertilizers.</p>
+          <span class="cat-count">8 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=irrigation" class="cat-card">
+          <div class="cat-icon">💧</div>
+          <h4>Irrigation</h4>
+          <p>Drip, sprinkler, and flood irrigation guidance.</p>
+          <span class="cat-count">4 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=weather-seasons" class="cat-card">
+          <div class="cat-icon">🌤️</div>
+          <h4>Weather & Seasons</h4>
+          <p>Planting schedules and climate-based advice.</p>
+          <span class="cat-count">5 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=seeds-planting" class="cat-card">
+          <div class="cat-icon">🌾</div>
+          <h4>Seeds & Planting</h4>
+          <p>Seed treatment, germination, and transplanting tips.</p>
+          <span class="cat-count">4 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=livestock" class="cat-card">
+          <div class="cat-icon">🐄</div>
+          <h4>Livestock & Poultry</h4>
+          <p>Animal health, feeding, and vaccination guidance.</p>
+          <span class="cat-count">3 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=organic-farming" class="cat-card">
+          <div class="cat-icon">♻️</div>
+          <h4>Organic Farming</h4>
+          <p>Natural pesticides, composting, and crop rotation.</p>
+          <span class="cat-count">3 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=government-schemes" class="cat-card">
+          <div class="cat-icon">🏛️</div>
+          <h4>Govt. Schemes</h4>
+          <p>PM-KISAN, crop insurance, and farmer subsidies.</p>
+          <span class="cat-count">2 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=weed-management" class="cat-card">
+          <div class="cat-icon">🌿</div>
+          <h4>Weed Management</h4>
+          <p>Herbicide selection and manual weeding schedules.</p>
+          <span class="cat-count">2 answers</span>
+        </a>
+
+        <a href="knowledge.html?cat=general" class="cat-card">
+          <div class="cat-icon">💡</div>
+          <h4>General Tips</h4>
+          <p>Intercropping, mulching, soil testing, and more.</p>
+          <span class="cat-count">4 answers</span>
+        </a>
+
+        <a href="ask.html" class="cat-card cat-card-ask">
+          <div class="cat-icon">🤖</div>
+          <h4>Ask AI</h4>
+          <p>Can't find your answer? Ask our AI assistant directly.</p>
+          <span class="cat-count">Unlimited</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section class="how-section">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Get answers to your farming questions in 3 simple steps.</p>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Type Your Question</h4>
+          <p>Describe your farming problem in plain language — no technical terms needed.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>We Search for Answers</h4>
+          <p>Our system searches our expert knowledge base for the best matching answer.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Get Instant Help</h4>
+          <p>Read practical, actionable advice you can apply to your farm right away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Have a question about your farm?</h2>
+        <p>Our knowledge base has answers to 50+ common farming problems — and AI backup for everything else.</p>
+        <a href="ask.html" class="btn btn-amber">Ask Your Question Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-text">🌾 FarmHelp</div>
+        <p>A free farming support system helping farmers solve crop, soil, pest, and livestock problems with expert knowledge and AI.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="ask.html">Ask a Question</a>
+        <a href="knowledge.html">Knowledge Base</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <a href="knowledge.html?cat=crop-diseases">Crop Diseases</a>
+        <a href="knowledge.html?cat=pests">Pests & Insects</a>
+        <a href="knowledge.html?cat=soil-fertilizers">Soil & Fertilizers</a>
+        <a href="knowledge.html?cat=irrigation">Irrigation</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 FarmHelp. Built as a college project to support farmers.
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    function doHeroSearch() {
+      const q = document.getElementById('heroSearch').value.trim();
+      if (!q) return;
+      const results = searchFarmingData(q);
+      const box = document.getElementById('heroResults');
+      if (results.length === 0) {
+        box.innerHTML = `<div class="no-result">No results found. <a href="ask.html">Ask our AI instead →</a></div>`;
+      } else {
+        box.innerHTML = results.slice(0, 3).map(r => `
+          <div class="result-item">
+            <span class="tag">${getCategoryLabel(r.category)}</span>
+            <h4>${r.question}</h4>
+            <p>${r.answer.slice(0, 140)}...</p>
+            <a href="knowledge.html?search=${encodeURIComponent(q)}" class="result-link">Read full answer →</a>
+          </div>
+        `).join('');
+      }
+      box.classList.remove('hidden');
+    }
+
+    document.getElementById('heroSearch').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doHeroSearch();
+    });
+  </script>
+
+</body>
+</html>

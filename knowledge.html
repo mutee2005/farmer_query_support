@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knowledge Base — FarmHelp</title>
+  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" href="css/knowledge.css"/>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="logo-icon">🌾</div>
+        FarmHelp
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="knowledge.html" class="active">Knowledge Base</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="ask.html" class="btn-ask">Ask a Question</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="knowledge.html" class="active">Knowledge Base</a>
+      <a href="about.html">About</a>
+      <a href="ask.html" class="btn-ask">Ask a Question</a>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HEADER ── -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Knowledge Base</h1>
+      <p>Browse 50+ expert answers on crops, soil, pests, irrigation, and more — all in one place.</p>
+
+      <!-- Search bar -->
+      <div class="kb-search-box">
+        <span>🔍</span>
+        <input
+          type="text"
+          id="kbSearch"
+          placeholder="Search the knowledge base..."
+          autocomplete="off"
+        />
+        <button onclick="clearKbSearch()" id="kbClearBtn" class="kb-clear hidden">✕</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MAIN ── -->
+  <main class="kb-main">
+    <div class="container kb-layout">
+
+      <!-- LEFT: FILTERS -->
+      <aside class="kb-sidebar">
+        <div class="filter-card card">
+          <h4>📂 Categories</h4>
+          <div class="filter-list">
+            <button class="filter-btn active" data-cat="all">
+              <span>🌾 All Topics</span>
+              <span class="filter-count">50</span>
+            </button>
+            <button class="filter-btn" data-cat="crop-diseases">
+              <span>🍂 Crop Diseases</span>
+              <span class="filter-count">8</span>
+            </button>
+            <button class="filter-btn" data-cat="pests">
+              <span>🐛 Pests & Insects</span>
+              <span class="filter-count">7</span>
+            </button>
+            <button class="filter-btn" data-cat="soil-fertilizers">
+              <span>🌱 Soil & Fertilizers</span>
+              <span class="filter-count">8</span>
+            </button>
+            <button class="filter-btn" data-cat="irrigation">
+              <span>💧 Irrigation</span>
+              <span class="filter-count">4</span>
+            </button>
+            <button class="filter-btn" data-cat="weather-seasons">
+              <span>🌤️ Weather & Seasons</span>
+              <span class="filter-count">5</span>
+            </button>
+            <button class="filter-btn" data-cat="seeds-planting">
+              <span>🌾 Seeds & Planting</span>
+              <span class="filter-count">4</span>
+            </button>
+            <button class="filter-btn" data-cat="weed-management">
+              <span>🌿 Weed Management</span>
+              <span class="filter-count">2</span>
+            </button>
+            <button class="filter-btn" data-cat="livestock">
+              <span>🐄 Livestock & Poultry</span>
+              <span class="filter-count">3</span>
+            </button>
+            <button class="filter-btn" data-cat="organic-farming">
+              <span>♻️ Organic Farming</span>
+              <span class="filter-count">3</span>
+            </button>
+            <button class="filter-btn" data-cat="government-schemes">
+              <span>🏛️ Govt. Schemes</span>
+              <span class="filter-count">2</span>
+            </button>
+            <button class="filter-btn" data-cat="general">
+              <span>💡 General Tips</span>
+              <span class="filter-count">4</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ask-cta-card card">
+          <div class="ask-cta-icon">🤖</div>
+          <h4>Can't find your answer?</h4>
+          <p>Ask our AI assistant directly for any farming question.</p>
+          <a href="ask.html" class="btn btn-amber">Ask Now</a>
+        </div>
+      </aside>
+
+      <!-- RIGHT: ACCORDION LIST -->
+      <div class="kb-content">
+
+        <!-- toolbar -->
+        <div class="kb-toolbar">
+          <div class="kb-toolbar-left">
+            <span id="resultCount" class="result-count">Showing all 50 answers</span>
+          </div>
+          <div class="kb-toolbar-right">
+            <button class="expand-btn" id="expandAllBtn" onclick="toggleExpandAll()">
+              ＋ Expand All
+            </button>
+          </div>
+        </div>
+
+        <!-- accordion items rendered by JS -->
+        <div id="accordionList" class="accordion-list"></div>
+
+        <!-- empty state -->
+        <div id="emptyState" class="empty-state hidden">
+          <div class="empty-icon">🔍</div>
+          <h3>No results found</h3>
+          <p>Try different keywords or browse by category.</p>
+          <a href="ask.html" class="btn btn-amber">Ask AI Instead</a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-text">🌾 FarmHelp</div>
+        <p>A free farming support system helping farmers solve crop, soil, pest, and livestock problems.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <a href="index.html">Home</a>
+        <a href="ask.html">Ask a Question</a>
+        <a href="knowledge.html">Knowledge Base</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <a href="knowledge.html?cat=crop-diseases">Crop Diseases</a>
+        <a href="knowledge.html?cat=pests">Pests & Insects</a>
+        <a href="knowledge.html?cat=soil-fertilizers">Soil & Fertilizers</a>
+        <a href="knowledge.html?cat=irrigation">Irrigation</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 FarmHelp. Built as a college project to support farmers.
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/knowledge.js"></script>
+
+</body>
+</html>
